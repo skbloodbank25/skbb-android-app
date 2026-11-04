@@ -1,0 +1,19 @@
+{
+  "name": "skbb-android-app",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Samaj Kallyan Blood Bank Android wrapper for the live Cloudflare-hosted app",
+  "scripts": {
+    "android:add": "cap add android",
+    "android:sync": "cap sync android",
+    "android:assets": "capacitor-assets generate --android"
+  },
+  "dependencies": {
+    "@capacitor/android": "^7.4.3",
+    "@capacitor/core": "^7.4.3"
+  },
+  "devDependencies": {
+    "@capacitor/cli": "^7.4.3",
+    "@capacitor/assets": "^3.0.5"
+  }
+}
