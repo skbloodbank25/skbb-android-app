@@ -1,9 +1,10 @@
 name: Build SKBB Android APK
 
 on:
-  workflow_dispatch:
   push:
-    branches: [main]
+    branches:
+      - main
+  workflow_dispatch:
 
 permissions:
   contents: read
@@ -30,42 +31,17 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Create Android project
+      - name: Add Android platform
         run: npx cap add android
 
-      - name: Prepare 1024px SKBB logo source
+      - name: Prepare official SKBB logo
         run: |
           sudo apt-get update
           sudo apt-get install -y imagemagick
           convert assets/icon.png -resize 1024x1024! -strip assets/icon.png
 
-      - name: Generate SKBB launcher icon and splash resources
+      - name: Generate Android app icon and splash screen
         run: npx capacitor-assets generate --android --iconBackgroundColor '#FFFFFF' --splashBackgroundColor '#FFFFFF'
-
-      - name: Sync Capacitor Android project
-        run: npx cap sync android
-
-      - name: Build debug APK
-        working-directory: android
-        run: chmod +x gradlew && ./gradlew assembleDebug
-
-      - name: Upload APK artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: SKBB-Android-Debug-APK
-          path: android/app/build/outputs/apk/debug/app-debug.apk
-          if-no-files-found: error
-          retention-days: 14      - name: Prepare Android launcher and splash source assets
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y imagemagick
-          convert assets/icon.png -resize 1024x1024! -strip assets/icon-only.png
-          convert -size 1024x1024 xc:none \( assets/icon.png -resize 680x680 \) -gravity center -composite assets/icon-foreground.png
-          convert -size 1024x1024 xc:white assets/icon-background.png
-          convert -size 2732x2732 xc:white \( assets/icon.png -resize 900x900 \) -gravity center -composite assets/splash.png
-
-      - name: Generate SKBB launcher icon and splash resources
-        run: npx capacitor-assets generate --android
 
       - name: Sync Capacitor Android project
         run: npx cap sync android
