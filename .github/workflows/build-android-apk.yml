@@ -33,6 +33,12 @@ jobs:
       - name: Create Android project
         run: npx cap add android
 
+      - name: Prepare 1024px SKBB logo source
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y imagemagick
+          convert assets/icon.png -resize 1024x1024! -strip assets/icon.png
+
       - name: Generate SKBB launcher icon and splash resources
         run: npx capacitor-assets generate --android --iconBackgroundColor '#FFFFFF' --splashBackgroundColor '#FFFFFF'
 
