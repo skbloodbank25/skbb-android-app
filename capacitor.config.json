@@ -1,0 +1,12 @@
+{
+  "appId": "org.samajkallyan.bloodbank",
+  "appName": "Samaj Kallyan Blood Bank",
+  "webDir": "www",
+  "server": {
+    "url": "https://broad-brook-9ad5.skbloodbank25.workers.dev/",
+    "cleartext": false,
+    "allowNavigation": [
+      "broad-brook-9ad5.skbloodbank25.workers.dev"
+    ]
+  }
+}
